@@ -1,0 +1,35 @@
+CATEGORY = ADXL363
+
+PROCESSOR = ADuCM4050
+
+#delete any previous build files
+<CMD, del /Q/S "$testdir\Debug">
+<CMD, del /Q/S "$testdir\Release">
+
+
+###### Release Config ######
+
+#build the test project
+<CMD, %IAR_EW_HOME%\\common\\bin\\iarbuild accel_fifo.ewp -build Release>$output/release_build.log>
+
+#confirm build succeeded
+<ASSERT_FINDINFILE, $output\release_build.log, Total number of errors: 0, Total number of warnings: 0>
+<ASSERT_FILEEXISTS, $testdir\Release\Exe\accel_fifo.out>
+
+
+###### Debug Config ######
+
+#build the test project
+<CMD, %IAR_EW_HOME%\\common\\bin\\iarbuild accel_fifo.ewp -build Debug>$output/debug_build.log>
+
+#confirm build succeeded
+<ASSERT_FINDINFILE, $output\debug_build.log, Total number of errors: 0, Total number of warnings: 0>
+<ASSERT_FILEEXISTS, $testdir\Debug\Exe\accel_fifo.out>
+
+###### Run Debug ######
+
+#This example is not required to be executed on the test machine.
+
+###### Run Release ######
+
+#This example is not required to be executed on the test machine.
